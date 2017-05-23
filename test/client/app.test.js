@@ -1,7 +1,8 @@
-import './setup-dom'
 import test from 'ava'
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
+
+import './setup-dom'
 
 import App from '../../client/components/App'
 
@@ -32,4 +33,12 @@ test('Shows widget details', t=> {
 
   wrapper.instance().showDetails(widgets[0])
   t.is(wrapper.find('.widget-details').exists(), true)
+})
+
+test('Shows delete widget link', t => {
+  const widgets = [{name: 'red', id: 1}, {name: 'blue', id: 2}]
+  const wrapper = mount(<App />)
+  wrapper.setState({widgets})
+
+  t.is(wrapper.find('.widget-list-item #delete-1').exists(), true)
 })

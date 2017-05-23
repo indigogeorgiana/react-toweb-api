@@ -1,6 +1,6 @@
 import React from 'react'
 
-import api from '../api'
+import {appendWidget} from '../api'
 
 export default class WidgetForm extends React.Component {
   constructor (props) {

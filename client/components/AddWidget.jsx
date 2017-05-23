@@ -13,8 +13,10 @@ export default class AddWidget extends React.Component {
     }
   }
 
-  componentWillUpdate(props) {
-    this.setState({...props.widget})
+  componentWillReceiveProps(nextProps, nextState) {
+    if (this.state != nextProps.widget) {
+      this.setState({...nextProps.widget})
+    }
   }
 
   fieldChanged (e) {
@@ -24,7 +26,7 @@ export default class AddWidget extends React.Component {
     })
   }
 
-  addWidget (e) {
+  save (e) {
     e.preventDefault()
     const widget = this.state
     this.props.submitCallback(widget)
@@ -50,7 +52,7 @@ export default class AddWidget extends React.Component {
             onChange={e => this.fieldChanged(e)}
             value={this.state.inStock}
             /></p>
-          <button onClick={e => this.addWidget(e)}>Add widget</button> {' '}
+          <button onClick={e => this.save(e)}>Add widget</button> {' '}
           <a href='#' onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>

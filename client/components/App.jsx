@@ -57,7 +57,9 @@ export default class App extends React.Component {
   }
 
   deleteWidget (widget) {
-    console.log('widget')
+    api.deleteWidget(widget, (error) => {
+      (error) ? this.setStatus({error}) : this.refreshList()
+    })
   }
 
   render () {
@@ -69,7 +71,7 @@ export default class App extends React.Component {
         <WidgetList
           showDetails={this.showDetails.bind(this)}
           widgets={this.state.widgets} 
-          deleteWidget={this.deleteWidget}
+          deleteWidget={this.deleteWidget.bind(this)}
       />
 
         <p><a id='show-widget-link' href='#' onClick={(e) => this.showAddWidget(e)}>Add widget</a></p>

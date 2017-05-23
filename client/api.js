@@ -3,8 +3,9 @@ import request from 'superagent'
 var widgetUrl = 'http://localhost:3000/widgets'
 
 module.exports = {
-  getWidgets: getWidgets,
-  appendWidget: appendWidget
+  getWidgets,
+  appendWidget,
+  deleteWidget
 }
 
 function getWidgets (callback) {
@@ -29,5 +30,13 @@ function appendWidget (widget, callback) {
       } else {
         callback()
       }
+    })
+}
+
+function deleteWidget (widget, callback) {
+  request
+    .delete(`${widgetUrl}/${widget.id}`)
+    .end((err) => {
+      callback(err)
     })
 }

@@ -21,9 +21,9 @@ test('Renders widget list', t => {
 
 test('Renders add form when clicked', t => {
   const wrapper = mount(<App />)
-  t.is(wrapper.find('.add-widget').exists(), false)
+  t.is(wrapper.find('.widget-form').exists(), false)
   wrapper.find('#show-widget-link').simulate('click')
-  t.is(wrapper.find('.add-widget').exists(), true)
+  t.is(wrapper.find('.widget-form').exists(), true)
 })
 
 test('Shows widget details', t=> {

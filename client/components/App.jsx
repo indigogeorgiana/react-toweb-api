@@ -85,6 +85,7 @@ export default class App extends React.Component {
   editWidget (widget) {
     api.updateWidget(widget, (error) => {
       error ? this.setState({error}) : this.refreshList()
+      this.setState({editWidgetVisible: false})
     })
   }
 

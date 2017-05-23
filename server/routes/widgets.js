@@ -17,4 +17,9 @@ router.delete('/:id', (req, res) => {
   res.sendStatus(204)
 })
 
+router.put('/:id', (req, res) => {
+  db.updateWidget(req.body)
+  res.sendStatus(204)
+})
+
 module.exports = router

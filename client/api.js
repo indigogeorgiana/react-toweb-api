@@ -5,7 +5,8 @@ var widgetUrl = 'http://localhost:3000/widgets'
 module.exports = {
   getWidgets,
   appendWidget,
-  deleteWidget
+  deleteWidget,
+  updateWidget
 }
 
 function getWidgets (callback) {
@@ -36,6 +37,15 @@ function appendWidget (widget, callback) {
 function deleteWidget (widget, callback) {
   request
     .delete(`${widgetUrl}/${widget.id}`)
+    .end((err) => {
+      callback(err)
+    })
+}
+
+function updateWidget (widget, callback) {
+  request
+    .put(`${widgetUrl}/${widget.id}`)
+    .send(widget)
     .end((err) => {
       callback(err)
     })

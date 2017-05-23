@@ -2,7 +2,7 @@ import React from 'react'
 
 import api from '../api'
 
-export default class AddWidget extends React.Component {
+export default class WidgetForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {...props.widget} || {
@@ -34,7 +34,7 @@ export default class AddWidget extends React.Component {
 
   render () {
     return (
-      <div className='add-widget'>
+      <div className='widget-form'>
         <form>
           <p><input placeholder='Name' name='name'
             onChange={e => this.fieldChanged(e)}
@@ -52,7 +52,7 @@ export default class AddWidget extends React.Component {
             onChange={e => this.fieldChanged(e)}
             value={this.state.inStock}
             /></p>
-          <button onClick={e => this.save(e)}>Add widget</button> {' '}
+          <button onClick={e => this.save(e)}>Save widget</button> {' '}
           <a href='#' onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>

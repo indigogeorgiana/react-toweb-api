@@ -5,12 +5,16 @@ import api from '../api'
 export default class AddWidget extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
+    this.state = {...props.widget} || {
       name: '',
       price: '',
       mfg: '',
       inStock: ''
     }
+  }
+
+  componentWillUpdate(props) {
+    this.setState({...props.widget})
   }
 
   fieldChanged (e) {
@@ -47,7 +51,7 @@ export default class AddWidget extends React.Component {
             value={this.state.inStock}
             /></p>
           <button onClick={e => this.addWidget(e)}>Add widget</button> {' '}
-          <a href='#' onClick={this.props.finishAdd}>Cancel</a>
+          <a href='#' onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>
     )

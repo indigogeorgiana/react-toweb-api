@@ -13,8 +13,10 @@ export default class App extends React.Component {
       error: null,
       widgets: [],
       activeWidget: null,
+      editWidget: null,
       detailsVisible: false,
-      addWidgetVisible: false
+      addWidgetVisible: false,
+      editWidgetVisible: false
     }
   }
 
@@ -44,9 +46,11 @@ export default class App extends React.Component {
   }
 
   hideAddWidget () {
-    this.setState({
-      addWidgetVisible: false
-    })
+    this.setState({ addWidgetVisible: false })
+  }
+
+  hideEditWidget () {
+    this.setState({ editWidgetVisible: false })
   }
 
   showDetails (widget) {
@@ -69,11 +73,17 @@ export default class App extends React.Component {
   }
 
   showEditForm (widget) {
-    console.log(widget)
+    this.setState({ editWidgetVisible: true, editWidget: widget })
   }
 
   addWidget (widget) {
     api.appendWidget(widget, (error) => {
+      error ? this.setState({error}) : this.refreshList()
+    })
+  }
+
+  editWidget (widget) {
+    api.updateWidget(widget, (error) => {
       error ? this.setState({error}) : this.refreshList()
     })
   }
@@ -95,7 +105,13 @@ export default class App extends React.Component {
 
         {this.state.addWidgetVisible && <AddWidget
           submitCallback={this.addWidget.bind(this)}
-          finishAdd={this.hideAddWidget.bind(this)}
+          cancelCallback={this.hideAddWidget.bind(this)}
+          />}
+
+        {this.state.editWidgetVisible && <AddWidget
+          submitCallback={this.editWidget.bind(this)}
+          cancelCallback={this.hideEditWidget.bind(this)}
+          widget={this.state.editWidget}
           />}
 
         {this.state.detailsVisible && <WidgetDetails

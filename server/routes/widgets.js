@@ -12,4 +12,9 @@ router.post('/', function (req, res) {
   res.sendStatus(200)
 })
 
+router.delete('/:id', (req, res) => {
+  db.deleteWidget(req.params.id)
+  res.sendStatus(204)
+})
+
 module.exports = router

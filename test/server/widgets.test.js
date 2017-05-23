@@ -33,3 +33,23 @@ test.serial.cb('POST /widgets', t => {
     })
 })
 
+
+test.serial.cb('DELETE /widgets/:id', t => {
+  request(app)
+    .delete('/widgets/1')
+    .expect(204)
+    .end((err, res) => {
+      if (!err) {
+        request(app)
+          .get('/widgets').end((err, res) => {
+            t.ifError(err)
+            t.is(res.body.length, 3)
+            t.end()
+          })
+      } else {
+        console.log(err)
+        t.fail()
+        t.end()
+      }
+    })
+})

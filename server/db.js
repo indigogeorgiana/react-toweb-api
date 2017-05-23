@@ -1,6 +1,7 @@
 module.exports = {
-  getWidgets: getWidgets,
-  saveWidget: saveWidget
+  getWidgets,
+  saveWidget,
+  deleteWidget
 }
 
 var widgets = [{
@@ -30,4 +31,8 @@ function getWidgets () {
 function saveWidget (widget) {
   widget.id = widgets.length + 1
   widgets.push(widget)
+}
+
+function deleteWidget (id) {
+  widgets = widgets.filter((w) => w.id != id)
 }

@@ -43,6 +43,12 @@ export default class App extends React.Component {
     })
   }
 
+  hideAddWidget () {
+    this.setState({
+      addWidgetVisible: false
+    })
+  }
+
   showDetails (widget) {
     this.setState({
       activeWidget: widget,
@@ -66,6 +72,12 @@ export default class App extends React.Component {
     console.log(widget)
   }
 
+  addWidget (widget) {
+    api.appendWidget(widget, (error) => {
+      error ? this.setState({error}) : this.refreshList()
+    })
+  }
+
   render () {
     return (
       <div>
@@ -82,7 +94,9 @@ export default class App extends React.Component {
         <p><a id='show-widget-link' href='#' onClick={(e) => this.showAddWidget(e)}>Add widget</a></p>
 
         {this.state.addWidgetVisible && <AddWidget
-          finishAdd={this.refreshList.bind(this)} />}
+          submitCallback={this.addWidget.bind(this)}
+          finishAdd={this.hideAddWidget.bind(this)}
+          />}
 
         {this.state.detailsVisible && <WidgetDetails
           isVisible={this.state.detailsVisible}

@@ -23,7 +23,7 @@ export default class AddWidget extends React.Component {
   addWidget (e) {
     e.preventDefault()
     const widget = this.state
-    api.appendWidget(widget, this.props.finishAdd)
+    this.props.submitCallback(widget)
   }
 
   render () {

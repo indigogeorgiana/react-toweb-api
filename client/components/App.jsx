@@ -56,6 +56,10 @@ export default class App extends React.Component {
     })
   }
 
+  deleteWidget (widget) {
+    console.log('widget')
+  }
+
   render () {
     return (
       <div>
@@ -64,7 +68,9 @@ export default class App extends React.Component {
 
         <WidgetList
           showDetails={this.showDetails.bind(this)}
-          widgets={this.state.widgets} />
+          widgets={this.state.widgets} 
+          deleteWidget={this.deleteWidget}
+      />
 
         <p><a id='show-widget-link' href='#' onClick={(e) => this.showAddWidget(e)}>Add widget</a></p>
 

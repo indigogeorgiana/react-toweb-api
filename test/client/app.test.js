@@ -1,6 +1,7 @@
 import test from 'ava'
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
+import * as sinon from 'sinon'
 
 import './setup-dom'
 
@@ -41,4 +42,17 @@ test('Shows delete widget link', t => {
   wrapper.setState({widgets})
 
   t.is(wrapper.find('.widget-list-item #delete-1').exists(), true)
+})
+
+test('Delete function called when delete link clicked', t => {
+  const widgets = [{name: 'red', id: 1}, {name: 'blue', id: 2}]
+  const wrapper = mount(<App />)
+
+  const app = wrapper.instance()
+  sinon.stub(app, 'deleteWidget')
+
+  wrapper.setState({widgets})
+
+  wrapper.find('#delete-1').simulate('click')
+  t.is(app.deleteWidget.called, true)
 })

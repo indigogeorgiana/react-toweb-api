@@ -10,7 +10,9 @@ export default (props) => {
           key={widget.id}
           widget={widget}
           hideDetails={props.hideDetails}
-          showDetails={props.showDetails} />
+          showDetails={props.showDetails} 
+          deleteWidget={props.deleteWidget}
+          />
       })}
     </div>
   )

@@ -56,3 +56,16 @@ test('Delete function called when delete link clicked', t => {
   wrapper.find('#delete-1').simulate('click')
   t.is(app.deleteWidget.called, true)
 })
+
+test('Show Edit Form function called when edit link clicked', t => {
+  const widgets = [{name: 'red', id: 1}, {name: 'blue', id: 2}]
+  const wrapper = mount(<App />)
+
+  const app = wrapper.instance()
+  sinon.stub(app, 'showEditForm')
+
+  wrapper.setState({widgets})
+
+  wrapper.find('#edit-1').simulate('click')
+  t.is(app.showEditForm.called, true)
+})

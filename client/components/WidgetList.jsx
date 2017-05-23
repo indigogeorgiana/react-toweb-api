@@ -12,6 +12,7 @@ export default (props) => {
           hideDetails={props.hideDetails}
           showDetails={props.showDetails} 
           deleteWidget={props.deleteWidget}
+          showEditForm={props.showEditForm}
           />
       })}
     </div>

@@ -35,12 +35,12 @@ function saveWidget (widget) {
 }
 
 function deleteWidget (id) {
-  widgets = widgets.filter((w) => w.id != id)
+  widgets = widgets.filter((w) => w.id !== id)
 }
 
 function updateWidget (widget) {
-  let originalWidget = widgets.forEach((w, i) => {
-    if (w.id == widget.id) {
+  widgets.forEach((w, i) => {
+    if (w.id === widget.id) {
       widgets[i] = widget
     }
   })

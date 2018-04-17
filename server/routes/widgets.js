@@ -1,24 +1,33 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
-var db = require('../db')
+const db = require('../db')
 
 router.get('/', function (req, res) {
   res.json(db.getWidgets())
 })
 
 router.post('/', function (req, res) {
-  db.saveWidget(req.body)
+  const widget = {
+    ...req.body,
+    id: Number(req.body.id)
+  }
+  db.saveWidget(widget)
   res.sendStatus(200)
 })
 
 router.delete('/:id', (req, res) => {
-  db.deleteWidget(req.params.id)
+  const id = Number(req.params.id)
+  db.deleteWidget(id)
   res.sendStatus(204)
 })
 
 router.put('/:id', (req, res) => {
-  db.updateWidget(req.body)
+  const widget = {
+    id: Number(req.params.id),
+    ...req.body
+  }
+  db.updateWidget(widget)
   res.sendStatus(204)
 })
 

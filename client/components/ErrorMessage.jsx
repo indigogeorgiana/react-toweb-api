@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default class ErrorMessage extends React.Component {
-
   shouldComponentUpdate () {
     return !!this.props.error
   }

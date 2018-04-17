@@ -1,7 +1,7 @@
 import React from 'react'
 import WidgetListItem from './WidgetListItem'
 
-export default (props) => {
+export default function WidgetList (props) {
   return (
     <div className='widget-list'>
       <h2>List</h2>
@@ -10,10 +10,10 @@ export default (props) => {
           key={widget.id}
           widget={widget}
           hideDetails={props.hideDetails}
-          showDetails={props.showDetails} 
+          showDetails={props.showDetails}
           deleteWidget={props.deleteWidget}
           showEditForm={props.showEditForm}
-          />
+        />
       })}
     </div>
   )

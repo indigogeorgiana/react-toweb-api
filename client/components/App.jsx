@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AddWidget from './AddWidget'
+import WidgetForm from './WidgetForm'
 import WidgetList from './WidgetList'
 import WidgetDetails from './WidgetDetails'
 import ErrorMessage from './ErrorMessage'
@@ -14,11 +14,21 @@ export default class App extends React.Component {
       error: null,
       widgets: [],
       activeWidget: null,
-      editWidget: null,
+      editedWidget: null,
       detailsVisible: false,
       addWidgetVisible: false,
       editWidgetVisible: false
     }
+    this.renderWidgets = this.renderWidgets.bind(this)
+    this.showDetails = this.showDetails.bind(this)
+    this.deleteWidget = this.deleteWidget.bind(this)
+    this.showEditForm = this.showEditForm.bind(this)
+    this.showAddWidget = this.showAddWidget.bind(this)
+    this.addWidget = this.addWidget.bind(this)
+    this.hideAddWidget = this.hideAddWidget.bind(this)
+    this.editWidget = this.editWidget.bind(this)
+    this.hideAddWidget = this.hideAddWidget.bind(this)
+    this.hideDetails = this.hideDetails.bind(this)
   }
 
   componentDidMount () {
@@ -37,7 +47,7 @@ export default class App extends React.Component {
       error: err,
       addWidgetVisible: false
     })
-    api.getWidgets(this.renderWidgets.bind(this))
+    api.getWidgets(this.renderWidgets)
   }
 
   showAddWidget () {
@@ -47,11 +57,11 @@ export default class App extends React.Component {
   }
 
   hideAddWidget () {
-    this.setState({ addWidgetVisible: false })
+    this.setState({addWidgetVisible: false})
   }
 
   hideEditWidget () {
-    this.setState({ editWidgetVisible: false })
+    this.setState({editWidgetVisible: false})
   }
 
   showDetails (widget) {
@@ -69,12 +79,15 @@ export default class App extends React.Component {
 
   deleteWidget (widget) {
     api.deleteWidget(widget, (error) => {
-      (error) ? this.setStatus({error}) : this.refreshList()
+      (error) ? this.setState({error}) : this.refreshList()
     })
   }
 
   showEditForm (widget) {
-    this.setState({ editWidgetVisible: true, editWidget: widget })
+    this.setState({
+      editWidgetVisible: true,
+      editedWidget: widget
+    })
   }
 
   addWidget (widget) {
@@ -97,30 +110,30 @@ export default class App extends React.Component {
         <h1>Widgets FTW!</h1>
 
         <WidgetList
-          showDetails={this.showDetails.bind(this)}
-          widgets={this.state.widgets} 
-          deleteWidget={this.deleteWidget.bind(this)}
-          showEditForm={this.showEditForm.bind(this)}
-      />
+          showDetails={this.showDetails}
+          widgets={this.state.widgets}
+          deleteWidget={this.deleteWidget}
+          showEditForm={this.showEditForm}
+        />
 
-        <p><a id='show-widget-link' href='#' onClick={(e) => this.showAddWidget(e)}>Add widget</a></p>
+        <p><a id='show-widget-link' href='#'
+          onClick={this.showAddWidget}>Add widget</a></p>
 
-        {this.state.addWidgetVisible && <AddWidget
-          submitCallback={this.addWidget.bind(this)}
-          cancelCallback={this.hideAddWidget.bind(this)}
-          />}
+        {this.state.addWidgetVisible && <WidgetForm
+          save={this.addWidget}
+          cancel={this.hideAddWidget}
+        />}
 
-        {this.state.editWidgetVisible && <AddWidget
-          submitCallback={this.editWidget.bind(this)}
-          cancelCallback={this.hideEditWidget.bind(this)}
-          widget={this.state.editWidget}
-          />}
+        {this.state.editWidgetVisible && <WidgetForm
+          save={this.editWidget}
+          cancel={this.hideEditWidget}
+          widget={this.state.editedWidget}
+        />}
 
         {this.state.detailsVisible && <WidgetDetails
           isVisible={this.state.detailsVisible}
-          hideDetails={this.hideDetails.bind(this)}
+          hideDetails={this.hideDetails}
           widget={this.state.activeWidget} />}
-
       </div>
     )
   }

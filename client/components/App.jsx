@@ -4,6 +4,7 @@ import AddWidget from './AddWidget'
 import WidgetList from './WidgetList'
 import WidgetDetails from './WidgetDetails'
 import ErrorMessage from './ErrorMessage'
+import Button from './Button'
 
 import {getWidgets} from '../api'
 
@@ -87,6 +88,7 @@ export default class App extends React.Component {
           isVisible={this.state.detailsVisible}
           hideDetails={this.hideDetails}
           widget={this.state.activeWidget} />}
+        <Button />
       </div>
     )
   }
